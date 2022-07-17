@@ -1,6 +1,8 @@
 const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
 const typeDefs = require("./typeDefs");
+require("dotenv").config();
+const mongoose = require("mongoose");
 const resolvers = require("./resolvers");
 const app = express();
 
@@ -11,10 +13,14 @@ const startServer = async () => {
   });
   await server.start();
   server.applyMiddleware({ app });
-};
 
-app.listen(4000, () => {
-  console.log("Server running at 4000");
+  await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, () =>
+    console.log("Connected to Database")
+  );
+};
+const PORT = process.env.PORT;
+app.listen(PORT || 3000, () => {
+  console.log(`🚀Server running on port ${PORT}`);
 });
 
 startServer();
