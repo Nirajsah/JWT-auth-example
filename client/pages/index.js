@@ -21,9 +21,9 @@ export default function Home({ Users }) {
           {Users.map((user) => {
             return (
               <a key={user.id} className={styles.card}>
-                <h2>{user.username} &rarr;</h2>
-                <p>{user.email}</p>
-                <p>{user.password}</p>
+                <h2>{user.username}</h2>
+                <p>Email: {user.email}</p>
+                <p>Password: {user.password}</p>
               </a>
             );
           })}
