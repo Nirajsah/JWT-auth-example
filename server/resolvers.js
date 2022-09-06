@@ -5,7 +5,7 @@ const { sign } = require("jsonwebtoken");
 
 const resolvers = {
   Query: {
-    hello: () => "Hello from p",
+    hello: () => "Hello from Resolvers",
     users: async () => await User.find(),
     posts: async () => await Post.find(),
   },
@@ -21,6 +21,7 @@ const resolvers = {
       }
 
       return {
+        // SecretKey should be hidden
         accessToken: sign({ userId: user.id }, "Secretkey", {
           expiresIn: "15m",
         }),
