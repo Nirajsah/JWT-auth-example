@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const resolvers = require("./resolvers");
 const app = express();
 
-const startServer = async () => {
+(async () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -14,13 +14,11 @@ const startServer = async () => {
   await server.start();
   server.applyMiddleware({ app });
 
-  await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, () =>
+  mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, () =>
     console.log("Connected to Database")
   );
-};
-const PORT = process.env.PORT;
-app.listen(PORT || 3000, () => {
-  console.log(`🚀Server running on port ${PORT}`);
-});
-
-startServer();
+  const PORT = process.env.PORT;
+  app.listen(PORT || 3000, () => {
+    console.log(`🚀Server running on port ${PORT}`);
+  });
+})();
